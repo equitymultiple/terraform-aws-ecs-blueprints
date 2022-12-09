@@ -127,6 +127,7 @@ resource "aws_ecs_task_definition" "this" {
   memory                   = var.memory
   execution_role_arn       = var.execution_role_arn
   task_role_arn            = aws_iam_role.task.arn
+  skip_destroy             = true
 
   container_definitions = jsonencode(
     concat(
@@ -158,12 +159,6 @@ resource "aws_iam_role" "task" {
   assume_role_policy = data.aws_iam_policy_document.task.json
 
   tags = var.tags
-
-  lifecycle {
-    ignore_changes = [
-      assume_role_policy
-    ]
-  }
 }
 
 data "aws_iam_policy_document" "task" {
