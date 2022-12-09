@@ -158,6 +158,7 @@ resource "aws_iam_role" "task" {
   assume_role_policy = data.aws_iam_policy_document.task.json
 
   tags = var.tags
+  depends_on = [data.aws_iam_policy_document.task]
 }
 
 data "aws_iam_policy_document" "task" {
