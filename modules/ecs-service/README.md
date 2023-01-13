@@ -78,7 +78,6 @@
 | <a name="input_map_secrets"></a> [map\_secrets](#input\_map\_secrets) | The secrets variables to pass to the container. This is a map of string: {key: value}. map\_secrets overrides secrets | `map(string)` | `null` | no |
 | <a name="input_memory"></a> [memory](#input\_memory) | The MEMORY value to assign to the container, read AWS documentation to available values | `number` | `512` | no |
 | <a name="input_name"></a> [name](#input\_name) | The name for the ecs service | `string` | n/a | yes |
-| <a name="input_opensearch_domain"></a> [opensearch\_domain](#input\_opensearch\_domain) | Domain name of Opensearch cluster to send logs to | `string` | `null` | no |
 | <a name="input_platform_version"></a> [platform\_version](#input\_platform\_version) | Platform version on which to run your service | `string` | `null` | no |
 | <a name="input_propagate_tags"></a> [propagate\_tags](#input\_propagate\_tags) | Specifies whether to propagate the tags from the task definition or the service to the tasks. The valid values are SERVICE and TASK\_DEFINITION. | `string` | `"SERVICE"` | no |
 | <a name="input_scheduled_autoscaling_down_max_capacity"></a> [scheduled\_autoscaling\_down\_max\_capacity](#input\_scheduled\_autoscaling\_down\_max\_capacity) | The maximum number of tasks to provision | `number` | `3` | no |

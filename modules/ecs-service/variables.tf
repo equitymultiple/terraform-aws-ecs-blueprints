@@ -315,12 +315,6 @@ variable "enable_firelens" {
   default     = false
 }
 
-variable "opensearch_domain" {
-  description = "Domain name of Opensearch cluster to send logs to"
-  type        = string
-  default     = null
-}
-
 variable "config_file_type" {
   description = "The source location of the custom configuration file. The available options are s3 or file."
   type        = string
