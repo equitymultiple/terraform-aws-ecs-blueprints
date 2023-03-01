@@ -5,10 +5,9 @@ locals {
     logDriver : "awsfirelens",
     "options" : {
       "Name" : "firehose",
-      "Type" : "_doc",
       "region" : data.aws_region.current.name,
-      "Logstash_Format" : true,
-      "delivery_stream": "logging"
+      "delivery_stream": "logging",
+      "time_key": "@timestamp"
     }
   }
   default_log_config = {
