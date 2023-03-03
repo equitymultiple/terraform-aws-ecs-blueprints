@@ -4,17 +4,10 @@ locals {
   firelens_log_config = {
     logDriver : "awsfirelens",
     "options" : {
-      "Name" : "es",
-      "Host" : var.opensearch_domain,
-      "Port" : "443",
-      "Index" : "application-",
-      "Type" : "_doc",
-      "Aws_Auth" : "On",
-      "Aws_Region" : data.aws_region.current.name,
-      "tls" : "On",
-      "retry_limit" : "2",
-      "Logstash_Format" : true,
-      "Logstash_Prefix" : "application"
+      "Name" : "firehose",
+      "region" : data.aws_region.current.name,
+      "delivery_stream": "logging",
+      "time_key": "@timestamp"
     }
   }
   default_log_config = {
