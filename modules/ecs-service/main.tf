@@ -4,7 +4,7 @@ locals {
   firelens_log_config = {
     logDriver : "awsfirelens",
     "options" : {
-      "Name" : "firehose",
+      "Name" : "kinesis_firehose",
       "region" : data.aws_region.current.name,
       "delivery_stream": "logging",
       "time_key": "@timestamp"
