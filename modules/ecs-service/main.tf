@@ -6,8 +6,8 @@ locals {
     "options" : {
       "Name" : "kinesis_firehose",
       "region" : data.aws_region.current.name,
-      "delivery_stream": "logging",
-      "time_key": "@timestamp"
+      "delivery_stream" : "logging",
+      "time_key" : "@timestamp"
     }
   }
   default_log_config = {
@@ -113,6 +113,7 @@ module "task_sidecar_containers" {
   environment_files            = lookup(var.sidecar_container_definitions[count.index], "environment_files", null)
   map_secrets                  = lookup(var.sidecar_container_definitions[count.index], "map_secrets", null)
   map_environment              = lookup(var.sidecar_container_definitions[count.index], "map_environment", null)
+
   log_configuration = {
     logDriver : "awslogs",
     options : {
@@ -127,10 +128,13 @@ module "task_firelens_container" {
   source = "../ecs-container-definition"
   count  = var.enable_firelens ? 1 : 0
 
-  container_name               = "log_router"
-  container_image              = "public.ecr.aws/aws-observability/aws-for-fluent-bit:stable"
-  essential                    = true
-  container_memory_reservation = 50
+  container_name               = var.firelens_container_definition[count.index]["container_name"]
+  container_image              = var.firelens_container_definition[count.index]["container_image"]
+  essential                    = lookup(var.firelens_container_definition[count.index], "essential", true)
+  container_memory             = lookup(var.firelens_container_definition[count.index], "container_memory", true)
+  container_memory_reservation = lookup(var.firelens_container_definition[count.index], "container_memory_reservation", true)
+  container_cpu                = lookup(var.firelens_container_definition[count.index], "container_cpu", 0)
+
   firelens_configuration = {
     "type" : "fluentbit",
     "options" : local.fluentbit_options
@@ -173,7 +177,7 @@ resource "aws_ecs_task_definition" "this" {
   task_role_arn            = aws_iam_role.task.arn
   skip_destroy             = true
 
-  container_definitions =  jsonencode(
+  container_definitions = jsonencode(
     concat(
       [module.task_main_app_container.json_map_object],
       [for fl in module.task_firelens_container : fl.json_map_object],

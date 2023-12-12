@@ -144,6 +144,12 @@ variable "sidecar_container_definitions" {
   default     = []
 }
 
+variable "firelens_container_definition" {
+  description = "Container definition for firelens"
+  type        = list(any)
+  default     = []
+}
+
 variable "command" {
   type        = list(string)
   description = "The command that is passed to the container"
