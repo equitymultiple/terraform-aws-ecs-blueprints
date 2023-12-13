@@ -131,8 +131,8 @@ module "task_firelens_container" {
   container_name               = var.firelens_container_definition[count.index]["container_name"]
   container_image              = var.firelens_container_definition[count.index]["container_image"]
   essential                    = lookup(var.firelens_container_definition[count.index], "essential", true)
-  container_memory             = lookup(var.firelens_container_definition[count.index], "container_memory", true)
-  container_memory_reservation = lookup(var.firelens_container_definition[count.index], "container_memory_reservation", true)
+  container_memory             = lookup(var.firelens_container_definition[count.index], "container_memory", null)
+  container_memory_reservation = lookup(var.firelens_container_definition[count.index], "container_memory_reservation", null)
   container_cpu                = lookup(var.firelens_container_definition[count.index], "container_cpu", 0)
 
   firelens_configuration = {
