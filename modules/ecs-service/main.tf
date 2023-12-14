@@ -175,7 +175,7 @@ resource "aws_ecs_task_definition" "this" {
   memory                   = var.memory
   execution_role_arn       = var.execution_role_arn
   task_role_arn            = aws_iam_role.task.arn
-  skip_destroy             = true
+  skip_destroy             = false
 
   container_definitions = jsonencode(
     concat(
