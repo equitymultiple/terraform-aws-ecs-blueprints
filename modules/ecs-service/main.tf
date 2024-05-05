@@ -113,6 +113,7 @@ module "task_sidecar_containers" {
   environment_files            = lookup(var.sidecar_container_definitions[count.index], "environment_files", null)
   map_secrets                  = lookup(var.sidecar_container_definitions[count.index], "map_secrets", null)
   map_environment              = lookup(var.sidecar_container_definitions[count.index], "map_environment", null)
+  readonly_root_filesystem     = var.readonly_root_filesystem
 
   log_configuration = {
     logDriver : "awslogs",
@@ -134,6 +135,7 @@ module "task_firelens_container" {
   container_memory             = lookup(var.firelens_container_definition[count.index], "container_memory", null)
   container_memory_reservation = lookup(var.firelens_container_definition[count.index], "container_memory_reservation", null)
   container_cpu                = lookup(var.firelens_container_definition[count.index], "container_cpu", 0)
+  readonly_root_filesystem     = var.readonly_root_filesystem
 
   firelens_configuration = {
     "type" : "fluentbit",
@@ -162,9 +164,9 @@ module "task_main_app_container" {
   }]
   log_configuration = local.main_task_log_config
 
-  map_secrets     = var.map_secrets
-  map_environment = var.map_environment
-
+  map_secrets              = var.map_secrets
+  map_environment          = var.map_environment
+  readonly_root_filesystem = var.readonly_root_filesystem
 }
 
 resource "aws_ecs_task_definition" "this" {
