@@ -332,3 +332,9 @@ variable "config_file_value" {
   type        = string
   default     = null
 }
+
+variable "readonly_root_filesystem" {
+  type        = bool
+  description = "Whether we want to use readonly root filesystem"
+  default     = false
+}
