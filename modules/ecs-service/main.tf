@@ -115,14 +115,6 @@ module "task_sidecar_containers" {
   map_environment              = lookup(var.sidecar_container_definitions[count.index], "map_environment", null)
   readonly_root_filesystem     = var.readonly_root_filesystem
 
-  linux_parameters = {
-    tmpfs = {
-      size = 128
-      containerPath = "/tmp"
-      mountOptions = "rw"
-    }
-  }
-
   log_configuration = {
     logDriver : "awslogs",
     options : {
@@ -150,14 +142,6 @@ module "task_firelens_container" {
     "options" : local.fluentbit_options
   }
 
-  linux_parameters = {
-    tmpfs = {
-      size = 128
-      containerPath = "/tmp"
-      mountOptions = "rw"
-    }
-  }
-
   log_configuration = {
     logDriver : "awslogs",
     options : {
@@ -183,14 +167,6 @@ module "task_main_app_container" {
   map_secrets              = var.map_secrets
   map_environment          = var.map_environment
   readonly_root_filesystem = var.readonly_root_filesystem
-
-  linux_parameters = {
-    tmpfs = {
-      size = 128
-      containerPath = "/tmp"
-      mountOptions = "rw"
-    }
-  }
 }
 
 resource "aws_ecs_task_definition" "this" {
