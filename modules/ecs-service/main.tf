@@ -168,10 +168,10 @@ module "task_main_app_container" {
   map_environment          = var.map_environment
   readonly_root_filesystem = var.readonly_root_filesystem
 
-  container_depends_on = [ {
-    container_name : var.container_name,
+  container_depends_on = [{
+    container_name : "log_router",
     condition : "HEALTHY"
-  } ]
+  }]
 }
 
 resource "aws_ecs_task_definition" "this" {
