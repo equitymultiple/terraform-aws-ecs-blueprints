@@ -150,6 +150,12 @@ module "task_firelens_container" {
       awslogs-stream-prefix : "firelens"
     }
   }
+
+  healthcheck = {
+    command : ["CMD-SHELL", "curl -f http://localhost/ || exit 1"]
+    retries  = 3
+    interval = 300
+  }
 }
 
 module "task_main_app_container" {
