@@ -169,7 +169,7 @@ module "task_main_app_container" {
   readonly_root_filesystem = var.readonly_root_filesystem
 
   container_depends_on = [{
-    container_name : "log_router",
+    containerName : "log_router",
     condition : "HEALTHY"
   }]
 }
