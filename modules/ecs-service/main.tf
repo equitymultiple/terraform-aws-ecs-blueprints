@@ -170,7 +170,7 @@ module "task_main_app_container" {
 
   container_depends_on = [{
     containerName : "log_router",
-    condition : "HEALTHY"
+    condition : "START"
   }]
 }
 
