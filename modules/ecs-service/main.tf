@@ -152,9 +152,11 @@ module "task_firelens_container" {
   }
 
   healthcheck = {
-    command : ["CMD-SHELL", "curl -f http://localhost/ || exit 1"]
-    retries  = 3
-    interval = 300
+    command     = ["CMD-SHELL", "curl -f http://127.0.0.1:2020/api/v1/uptime || exit 1"]
+    retries     = 2
+    timeout     = 5
+    interval    = 10
+    startPeriod = 30
   }
 }
 
