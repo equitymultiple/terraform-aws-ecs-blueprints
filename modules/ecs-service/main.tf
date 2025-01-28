@@ -150,6 +150,14 @@ module "task_firelens_container" {
       awslogs-stream-prefix : "firelens"
     }
   }
+
+  healthcheck = {
+    command     = ["CMD-SHELL", "curl -f http://127.0.0.1:2020/api/v1/uptime || exit 1"]
+    retries     = 2
+    timeout     = 5
+    interval    = 10
+    startPeriod = 30
+  }
 }
 
 module "task_main_app_container" {
@@ -167,6 +175,11 @@ module "task_main_app_container" {
   map_secrets              = var.map_secrets
   map_environment          = var.map_environment
   readonly_root_filesystem = var.readonly_root_filesystem
+
+  container_depends_on = [{
+    containerName : "log_router",
+    condition : "HEALTHY"
+  }]
 }
 
 resource "aws_ecs_task_definition" "this" {
