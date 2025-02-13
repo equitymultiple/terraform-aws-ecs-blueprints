@@ -61,9 +61,3 @@ variable "service_role" {
   description = "Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that enables AWS CodeBuild to interact with dependent AWS services on behalf of the AWS account"
   type        = string
 }
-
-variable "termination_wait_time_in_minutes" {
-  description = "The time in minutes to wait before terminating the blue instances"
-  type        = number
-  default     = 5
-}
