@@ -45,6 +45,8 @@ resource "aws_ecs_service" "this" {
   deployment_minimum_healthy_percent = var.deployment_minimum_healthy_percent
   deployment_maximum_percent         = var.deployment_maximum_percent
 
+  availability_zone_rebalancing = "ENABLED"
+
   capacity_provider_strategy {
     base              = var.cp_strategy_base
     capacity_provider = "FARGATE"
